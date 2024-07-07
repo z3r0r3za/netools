@@ -77,13 +77,13 @@ def run_tcpclient(dom, por):
 
 
 def run_udpclient(tar, por):
-    # Create socket object (with IPv4, TCP) saving it in client.
+    # Create socket object (with IPv4, UDP) saving it in client.
     client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     # Bind socket to the target.
     client.bind((tar, por))
     # Send some data as bytes.
     data = f"HERE IS SOME DATA FOR {tar}:{por}"
-    #data_bytes = bytes(data)
+    #data_bytes = bytes(data, "utf-8")
     data_bytes = data.encode("utf-8")
     client.sendto(data_bytes, (tar, por))
 
