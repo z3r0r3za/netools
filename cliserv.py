@@ -76,17 +76,16 @@ def run_tcpclient(dom, por):
     client.close()
 
 
-#------------------ Not finish/working yet ------------------#
-def run_udpclient(dom, por):
+def run_udpclient(tar, por):
     # Create socket object (with IPv4, TCP) saving it in client.
     client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    # No connection is needed for UDP.
-    # Send some data as bytes (set up as argument).
-    data = f"HERE IS SOME DATA FOR {dom}:{por}"
-    data_bytes = bytes(data)
-    #data_bytes = data.encode('utf-8')
-    client.sendto(data_bytes, (dom, por))
+    # Bind socket to the target.
+    client.bind((tar, por))
+    # Send some data as bytes.
+    data = f"HERE IS SOME DATA FOR {tar}:{por}"
+    #data_bytes = bytes(data)
+    data_bytes = data.encode("utf-8")
+    client.sendto(data_bytes, (tar, por))
 
     # Receive the data and remote info, print the data and close the socket.
     res, addr = client.recvfrom(4096)
